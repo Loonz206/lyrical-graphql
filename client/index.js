@@ -1,10 +1,11 @@
 import React, { lazy, Suspense } from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { ApolloClient, InMemoryCache } from "@apollo/client";
 import { ApolloProvider } from "react-apollo";
 import ErrorBoundary from "./components/ErrorBoundry";
 const App = lazy(() => import("./components/App"));
+
 const cache = new InMemoryCache();
 const client = new ApolloClient({
   cache: cache,
@@ -15,11 +16,13 @@ ReactDOM.render(
   <ErrorBoundary fallback={"An error has occurred"}>
     <Suspense fallback={<div>Loading...</div>}>
       <ApolloProvider client={client}>
-        <BrowserRouter>
+        <Router>
           <Switch>
-            <Route path="/" component={App}></Route>
+            <Route exact path="/">
+              <App />
+            </Route>
           </Switch>
-        </BrowserRouter>
+        </Router>
       </ApolloProvider>
     </Suspense>
   </ErrorBoundary>,

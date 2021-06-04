@@ -1,5 +1,6 @@
 import React from "react";
 import gql from "graphql-tag";
+import PropType from "prop-types";
 import { graphql } from "react-apollo";
 
 const SongList = ({ data }) => {
@@ -27,5 +28,9 @@ const query = gql`
     }
   }
 `;
+
+SongList.propTypes = {
+  data: PropType.shape(),
+};
 
 export default graphql(query)(SongList);

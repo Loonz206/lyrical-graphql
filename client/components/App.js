@@ -3,7 +3,7 @@ import SongList from "./SongList";
 
 const App = () => {
   return (
-    <div>
+    <div className="container">
       <SongList />
     </div>
   );
