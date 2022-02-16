@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { ApolloClient, InMemoryCache } from "@apollo/client";
 import { ApolloProvider } from "react-apollo";
-import ErrorBoundary from "./components/ErrorBoundry";
+import ErrorBoundary from "./components/ErrorBoundary";
 const App = lazy(() => import("./components/App"));
 
 const cache = new InMemoryCache();
