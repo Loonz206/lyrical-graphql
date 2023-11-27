@@ -46,7 +46,7 @@
     "webpack-dev-middleware": "^4.3.0"
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.22.10",
+    "@babel/preset-env": "^7.22.14",
     "@babel/preset-react": "^7.22.5",
     "@commitlint/cli": "^17.0.0",
     "@commitlint/config-conventional": "^12.1.4",
