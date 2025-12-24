@@ -1,17 +1,19 @@
+const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-  mode: process.env.NODE_ENV,
+  mode: process.env.NODE_ENV || "production",
   entry: "./client/index.js",
   output: {
-    path: "/",
+    path: path.resolve(__dirname, "dist"),
     filename: "bundle.js",
+    clean: true,
   },
   module: {
     rules: [
       {
         use: "babel-loader",
-        test: /\.js$/,
+        test: /\.jsx?$/,
         exclude: /node_modules/,
       },
       {
@@ -25,4 +27,8 @@ module.exports = {
       template: "client/index.html",
     }),
   ],
+  resolve: {
+    extensions: [".js", ".jsx"],
+  },
+  devtool: process.env.NODE_ENV === "production" ? false : "source-map",
 };
