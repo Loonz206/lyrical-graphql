@@ -37,7 +37,7 @@
     "passport-local": "^1.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.20.1",
+    "react-router-dom": "^7.0.0",
     "style-loader": "^3.3.3",
     "webpack": "^5.89.0",
     "webpack-dev-middleware": "^6.1.1"
