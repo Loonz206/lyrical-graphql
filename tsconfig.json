@@ -12,14 +12,17 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "jsx": "react-jsx",
-    "noEmit": true
+    "noEmit": true,
+    "types": ["jest", "@testing-library/jest-dom"]
   },
   "include": [
     "index.ts",
     "config/**/*.ts",
     "server/**/*.ts",
+    "server/**/*.test.ts",
     "client/**/*.ts",
-    "client/**/*.tsx"
+    "client/**/*.tsx",
+    "jest.setup.ts"
   ],
   "exclude": ["node_modules", "dist"]
 }
