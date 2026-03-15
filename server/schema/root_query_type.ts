@@ -7,6 +7,7 @@ import {
 } from "graphql";
 import SongType from "./song_type";
 import LyricType from "./lyric_type";
+import { assertValidObjectId } from "../utils/validateObjectId";
 
 const Lyric = mongoose.model("lyric");
 const Song = mongoose.model("song");
@@ -24,14 +25,16 @@ const RootQueryType = new GraphQLObjectType({
       type: SongType,
       args: { id: { type: new GraphQLNonNull(GraphQLID) } },
       resolve(_parentValue: unknown, args: Record<string, string>) {
-        return Song.findById(args.id);
+        const id = assertValidObjectId(args.id);
+        return Song.findById(id);
       },
     },
     lyric: {
       type: LyricType,
       args: { id: { type: new GraphQLNonNull(GraphQLID) } },
       resolve(_parentValue: unknown, args: Record<string, string>) {
-        return Lyric.findById(args.id);
+        const id = assertValidObjectId(args.id);
+        return Lyric.findById(id);
       },
     },
   }),

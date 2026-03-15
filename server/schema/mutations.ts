@@ -4,6 +4,7 @@ import SongType from "./song_type";
 import LyricType from "./lyric_type";
 import { ISongModel, ISong } from "../models/song";
 import { ILyricModel } from "../models/lyric";
+import { assertValidObjectId } from "../utils/validateObjectId";
 
 const Song = mongoose.model<ISong, ISongModel>("song");
 const Lyric = mongoose.model<InstanceType<ILyricModel>, ILyricModel>("lyric");
@@ -27,21 +28,24 @@ const mutations = new GraphQLObjectType({
         songId: { type: GraphQLID },
       },
       resolve(_parentValue: unknown, args: Record<string, string>) {
-        return Song.addLyric(args.songId, args.content);
+        const songId = assertValidObjectId(args.songId, "songId");
+        return Song.addLyric(songId, args.content);
       },
     },
     likeLyric: {
       type: LyricType,
       args: { id: { type: GraphQLID } },
       resolve(_parentValue: unknown, args: Record<string, string>) {
-        return Lyric.like(args.id);
+        const id = assertValidObjectId(args.id);
+        return Lyric.like(id);
       },
     },
     deleteSong: {
       type: SongType,
       args: { id: { type: GraphQLID } },
       resolve(_parentValue: unknown, args: Record<string, string>) {
-        return Song.deleteOne({ _id: args.id });
+        const id = assertValidObjectId(args.id);
+        return Song.deleteOne({ _id: new mongoose.Types.ObjectId(id) });
       },
     },
   },
