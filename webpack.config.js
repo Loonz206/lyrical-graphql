@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   mode: process.env.NODE_ENV || "production",
-  entry: "./client/index.js",
+  entry: "./client/index.tsx",
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "bundle.js",
@@ -13,7 +13,7 @@ module.exports = {
     rules: [
       {
         use: "babel-loader",
-        test: /\.jsx?$/,
+        test: /\.[jt]sx?$/,
         exclude: /node_modules/,
       },
       {
@@ -28,7 +28,7 @@ module.exports = {
     }),
   ],
   resolve: {
-    extensions: [".js", ".jsx"],
+    extensions: [".ts", ".tsx", ".js", ".jsx"],
   },
   devtool: process.env.NODE_ENV === "production" ? false : "source-map",
 };

@@ -1,9 +1,13 @@
-const express = require("express");
-const { graphqlHTTP } = require("express-graphql");
-const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
-const schema = require("./schema/schema");
-const { mongoDbPassword } = require("../config/config");
+import express from "express";
+import { graphqlHTTP } from "express-graphql";
+import mongoose from "mongoose";
+import bodyParser from "body-parser";
+import webpackDevMiddleware from "webpack-dev-middleware";
+import webpack from "webpack";
+import schema from "./schema/schema";
+import { mongoDbPassword } from "../config/config";
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const webpackConfig = require("../webpack.config.js") as webpack.Configuration;
 
 const app = express();
 app.disable("x-powered-by");
@@ -15,10 +19,7 @@ if (!MONGO_URI) {
 }
 
 mongoose.Promise = global.Promise;
-mongoose.connect(MONGO_URI, {
-  useUnifiedTopology: true,
-  useNewUrlParser: true,
-});
+mongoose.connect(MONGO_URI);
 mongoose.connection
   .once("open", () => console.log("Connected to MongoDB."))
   .on("error", (error) => console.log("Error connecting to MongoLab:", error));
@@ -32,9 +33,6 @@ app.use(
   }),
 );
 
-const webpackMiddleware = require("webpack-dev-middleware");
-const webpack = require("webpack");
-const webpackConfig = require("../webpack.config.js");
-app.use(webpackMiddleware(webpack(webpackConfig)));
+app.use(webpackDevMiddleware(webpack(webpackConfig)));
 
-module.exports = app;
+export default app;
