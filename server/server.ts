@@ -18,7 +18,7 @@ if (!MONGO_URI) {
   throw new Error("You must provide a MongoLab URI");
 }
 
-mongoose.Promise = global.Promise;
+mongoose.Promise = globalThis.Promise;
 mongoose.connect(MONGO_URI);
 mongoose.connection
   .once("open", () => console.log("Connected to MongoDB."))
