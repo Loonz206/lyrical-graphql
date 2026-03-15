@@ -1,7 +1,4 @@
-import React from "react";
-import gql from "graphql-tag";
-import PropTypes from "prop-types";
-import { useQuery } from "@apollo/client";
+import { gql, useQuery } from "@apollo/client";
 
 const QUERY = gql`
   {
@@ -12,8 +9,21 @@ const QUERY = gql`
   }
 `;
 
-const SongList = ({ onSongSelected }) => {
-  const { data, loading } = useQuery(QUERY);
+interface Song {
+  id: string;
+  title: string;
+}
+
+interface SongListData {
+  songs: Song[];
+}
+
+interface SongListProps {
+  onSongSelected?: (song: Song) => void;
+}
+
+const SongList = ({ onSongSelected }: SongListProps) => {
+  const { data, loading } = useQuery<SongListData>(QUERY);
 
   if (loading) {
     return <div>Loading....</div>;
@@ -22,12 +32,12 @@ const SongList = ({ onSongSelected }) => {
   const { songs } = data || {};
 
   const renderSongs = () => {
-    return songs.map((song) => {
+    return (songs ?? []).map((song) => {
       return (
         <li key={song.id} className="collection-item">
           <button
             type="button"
-            onClick={() => onSongSelected(song)}
+            onClick={() => onSongSelected?.(song)}
             style={{
               background: "none",
               border: "none",
@@ -45,10 +55,6 @@ const SongList = ({ onSongSelected }) => {
   };
 
   return <ul className="collection">{renderSongs()}</ul>;
-};
-
-SongList.propTypes = {
-  onSongSelected: PropTypes.func,
 };
 
 export default SongList;

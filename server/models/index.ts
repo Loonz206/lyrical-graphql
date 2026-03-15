@@ -1,0 +1,2 @@
+import "./song";
+import "./lyric";
